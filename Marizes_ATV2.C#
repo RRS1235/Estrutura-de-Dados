@@ -1,0 +1,42 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Matrizes_ATV2
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            string[] valores;
+            int n, soma;
+            int[,] mat;
+
+            n = int.Parse(Console.ReadLine());
+            mat = new int[n, n];
+
+            for (int lin = 0; lin < n; lin++)
+            {
+                valores = Console.ReadLine().Split(' ');
+
+                for (int col = 0; col < n; col++)
+                {
+                    mat[lin, col] = int.Parse(valores[col]);
+                }
+            }
+
+            for (int i = 0; i < n; i++)
+            {
+                soma = 0;
+                for (int j = 0; j < n; j++)
+                {
+                    soma += mat[i, j];
+                }
+                Console.WriteLine(soma);
+            }
+            Console.ReadKey();
+        }
+    }
+}
