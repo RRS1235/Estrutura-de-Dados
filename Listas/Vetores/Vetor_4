@@ -1,0 +1,40 @@
+namespace Vetor_4
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            // Lê o tamanho do vetor
+            int N = int.Parse(Console.ReadLine());
+
+            // Lê os elementos do vetor
+            double[] vetor = new double[N];
+            string[] entrada = Console.ReadLine().Split(' ');
+
+            for (int i = 0; i < N; i++)
+            {
+                vetor[i] = double.Parse(entrada[i]);
+            }
+
+            // Calcula a média
+            double soma = 0.0;
+            for (int i = 0; i < N; i++)
+            {
+                soma += vetor[i];
+            }
+            double media = soma / N;
+
+            // Mostra a média
+            Console.WriteLine(media.ToString("F3"));  // Exibe com 3 casas decimais
+
+            // Mostra os valores abaixo da média
+            for (int i = 0; i < N; i++)
+            {
+                if (vetor[i] < media)
+                {
+                    Console.WriteLine(vetor[i].ToString("F1"));
+                }
+            }
+        }
+    }
+}
