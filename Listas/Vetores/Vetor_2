@@ -1,0 +1,36 @@
+namespace Vetor_2
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            // Lê a quantidade de números
+            int N = int.Parse(Console.ReadLine());
+
+            // Lê os números e armazena no vetor
+            int[] numeros = new int[N];
+            string[] entrada = Console.ReadLine().Split(' ');
+
+            for (int i = 0; i < N; i++)
+            {
+                numeros[i] = int.Parse(entrada[i]);
+            }
+
+            // Mostra os números pares
+            int contadorPares = 0;
+            for (int i = 0; i < N; i++)
+            {
+                if (numeros[i] % 2 == 0)
+                {
+                    Console.Write(numeros[i] + " ");
+                    contadorPares++;
+                }
+            }
+
+            Console.WriteLine(); // Pula linha
+
+            // Mostra a quantidade de números pares
+            Console.WriteLine(contadorPares);
+        }
+    }
+}
