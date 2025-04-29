@@ -1,0 +1,49 @@
+namespace Vetor_8
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int N = int.Parse(Console.ReadLine());
+
+            double[] alturas = new double[N];
+            char[] sexos = new char[N];
+
+            for (int i = 0; i < N; i++)
+            {
+                string[] entrada = Console.ReadLine().Split(' ');
+                alturas[i] = double.Parse(entrada[0], CultureInfo.InvariantCulture);
+                sexos[i] = char.Parse(entrada[1]);
+            }
+
+            double menor = alturas[0];
+            double maior = alturas[0];
+            double somaAlturasMulheres = 0;
+            int qtdMulheres = 0;
+            int qtdHomens = 0;
+
+            for (int i = 0; i < N; i++)
+            {
+                if (alturas[i] < menor) menor = alturas[i];
+                if (alturas[i] > maior) maior = alturas[i];
+
+                if (sexos[i] == 'F')
+                {
+                    somaAlturasMulheres += alturas[i];
+                    qtdMulheres++;
+                }
+                else if (sexos[i] == 'M')
+                {
+                    qtdHomens++;
+                }
+            }
+
+            double mediaMulheres = qtdMulheres > 0 ? somaAlturasMulheres / qtdMulheres : 0.0;
+
+            Console.WriteLine("Menor altura = " + menor.ToString("F2", CultureInfo.InvariantCulture));
+            Console.WriteLine("Maior altura = " + maior.ToString("F2", CultureInfo.InvariantCulture));
+            Console.WriteLine("Media das alturas das mulheres = " + mediaMulheres.ToString("F2", CultureInfo.InvariantCulture));
+            Console.WriteLine("Numero de homens = " + qtdHomens);
+        }
+    }
+}
