@@ -1,0 +1,44 @@
+namespace Vetor_5
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            // Lê a quantidade de números
+            int N = int.Parse(Console.ReadLine());
+
+            // Lê os números
+            int[] numeros = new int[N];
+            string[] entrada = Console.ReadLine().Split(' ');
+
+            for (int i = 0; i < N; i++)
+            {
+                numeros[i] = int.Parse(entrada[i]);
+            }
+
+            // Calcula a média dos pares
+            int soma = 0;
+            int qtdPares = 0;
+
+            for (int i = 0; i < N; i++)
+            {
+                if (numeros[i] % 2 == 0)
+                {
+                    soma += numeros[i];
+                    qtdPares++;
+                }
+            }
+
+            // Evita divisão por zero
+            if (qtdPares > 0)
+            {
+                double media = (double)soma / qtdPares;
+                Console.WriteLine(media.ToString("F1"));
+            }
+            else
+            {
+                Console.WriteLine("Nenhum número par foi digitado.");
+            }
+        }
+    }
+}
