@@ -1,0 +1,42 @@
+namespace Vetor_3
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            // Lê o número de elementos
+            int N = int.Parse(Console.ReadLine());
+
+            // Lê o vetor A
+            int[] A = new int[N];
+            string[] entradaA = Console.ReadLine().Split(' ');
+            for (int i = 0; i < N; i++)
+            {
+                A[i] = int.Parse(entradaA[i]);
+            }
+
+            // Lê o vetor B
+            int[] B = new int[N];
+            string[] entradaB = Console.ReadLine().Split(' ');
+            for (int i = 0; i < N; i++)
+            {
+                B[i] = int.Parse(entradaB[i]);
+            }
+
+            // Calcula o vetor C como soma dos correspondentes de A e B
+            int[] C = new int[N];
+            for (int i = 0; i < N; i++)
+            {
+                C[i] = A[i] + B[i];
+            }
+
+            // Imprime o vetor C
+            for (int i = 0; i < N; i++)
+            {
+                Console.Write(C[i] + " ");
+            }
+
+            Console.WriteLine();
+        }
+    }
+}
