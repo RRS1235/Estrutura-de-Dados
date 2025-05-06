@@ -1,1 +1,73 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
+namespace Pilha_1
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Stack<string> pilha = new Stack<string>();
+            int opcao;
+
+            do
+            {
+                Console.WriteLine("\n--- Menu ---");
+                Console.WriteLine("1 - Adicionar documento");
+                Console.WriteLine("2 - Remover documento");
+                Console.WriteLine("3 - Ver documento no topo");
+                Console.WriteLine("4 - Listar documentos");
+                Console.WriteLine("5 - Contar documentos");
+                Console.WriteLine("0 - Sair");
+                Console.Write("Escolha: ");
+                opcao = int.Parse(Console.ReadLine());
+
+                switch (opcao)
+                {
+                    case 1:
+                        Console.Write("Digite o nome do documento: ");
+                        string doc = Console.ReadLine();
+                        pilha.Push(doc);
+                        Console.WriteLine("Documento adicionado.");
+                        break;
+
+                    case 2:
+                        if (pilha.Count > 0)
+                            Console.WriteLine($"Documento removido: {pilha.Pop()}");
+                        else
+                            Console.WriteLine("Pilha vazia.");
+                        break;
+
+                    case 3:
+                        if (pilha.Count > 0)
+                            Console.WriteLine($"No topo: {pilha.Peek()}");
+                        else
+                            Console.WriteLine("Pilha vazia.");
+                        break;
+
+                    case 4:
+                        Console.WriteLine("Documentos pendentes:");
+                        foreach (var d in pilha)
+                            Console.WriteLine(d);
+                        break;
+
+                    case 5:
+                        Console.WriteLine($"Total: {pilha.Count} documento(s)");
+                        break;
+
+                    case 0:
+                        Console.WriteLine("Saindo...");
+                        break;
+
+                    default:
+                        Console.WriteLine("Opção inválida.");
+                        break;
+                }
+
+            } while (opcao != 0);
+        }
+    }
+}
