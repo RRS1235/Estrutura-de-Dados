@@ -1,0 +1,85 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Matriz_6
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int N = int.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+            double[,] matriz = new double[N, N];
+
+            // Ler matriz
+            for (int i = 0; i < N; i++)
+            {
+                string[] linha = Console.ReadLine().Split(' ');
+                for (int j = 0; j < N; j++)
+                {
+                    matriz[i, j] = double.Parse(linha[j], CultureInfo.InvariantCulture);
+                }
+            }
+
+            // Índices de linha e coluna a serem usados
+            int linhaEscolhida = int.Parse(Console.ReadLine());
+            int colunaEscolhida = int.Parse(Console.ReadLine());
+
+            // a) Soma dos positivos
+            double somaPositivos = 0.0;
+            for (int i = 0; i < N; i++)
+            {
+                for (int j = 0; j < N; j++)
+                {
+                    if (matriz[i, j] > 0.0)
+                    {
+                        somaPositivos += matriz[i, j];
+                    }
+                }
+            }
+            Console.WriteLine($"SOMA DOS POSITIVOS: {somaPositivos.ToString("F1", CultureInfo.InvariantCulture)}");
+
+            // b) Imprimir linha escolhida
+            Console.Write("LINHA ESCOLHIDA: ");
+            for (int j = 0; j < N; j++)
+            {
+                Console.Write(matriz[linhaEscolhida, j].ToString("F1", CultureInfo.InvariantCulture) + " ");
+            }
+            Console.WriteLine();
+
+            // c) Imprimir coluna escolhida
+            Console.Write("COLUNA ESCOLHIDA: ");
+            for (int i = 0; i < N; i++)
+            {
+                Console.Write(matriz[i, colunaEscolhida].ToString("F1", CultureInfo.InvariantCulture) + " ");
+            }
+            Console.WriteLine();
+
+            // d) Diagonal principal
+            Console.Write("DIAGONAL PRINCIPAL: ");
+            for (int i = 0; i < N; i++)
+            {
+                Console.Write(matriz[i, i].ToString("F1", CultureInfo.InvariantCulture) + " ");
+            }
+            Console.WriteLine();
+
+            // e) Alterar matriz: elevar ao quadrado os negativos
+            Console.WriteLine("MATRIZ ALTERADA:");
+            for (int i = 0; i < N; i++)
+            {
+                for (int j = 0; j < N; j++)
+                {
+                    if (matriz[i, j] < 0.0)
+                    {
+                        matriz[i, j] = Math.Pow(matriz[i, j], 2.0);
+                    }
+                    Console.Write(matriz[i, j].ToString("F1", CultureInfo.InvariantCulture) + " ");
+                }
+                Console.WriteLine();
+            }
+        }
+    }
+}
