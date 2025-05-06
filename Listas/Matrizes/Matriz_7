@@ -1,0 +1,51 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Matriz_7
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            string[] dimensoes = Console.ReadLine().Split(' ');
+            int M = int.Parse(dimensoes[0]); // número de filas
+            int N = int.Parse(dimensoes[1]); // soldados por fila
+
+            int[,] pelotao = new int[M, N];
+
+            // Ler pelotão
+            for (int i = 0; i < M; i++)
+            {
+                string[] linha = Console.ReadLine().Split(' ');
+                for (int j = 0; j < N; j++)
+                {
+                    pelotao[i, j] = int.Parse(linha[j]);
+                }
+            }
+
+            // Índice da fila a ser girada (1-based na entrada, 0-based no código)
+            int filaGirar = int.Parse(Console.ReadLine()) - 1;
+
+            // Girar a fila para a direita
+            int ultimo = pelotao[filaGirar, N - 1];
+            for (int j = N - 1; j > 0; j--)
+            {
+                pelotao[filaGirar, j] = pelotao[filaGirar, j - 1];
+            }
+            pelotao[filaGirar, 0] = ultimo;
+
+            // Imprimir pelotão atualizado
+            for (int i = 0; i < M; i++)
+            {
+                for (int j = 0; j < N; j++)
+                {
+                    Console.Write(pelotao[i, j] + " ");
+                }
+                Console.WriteLine();
+            }
+        }
+    }
+}
