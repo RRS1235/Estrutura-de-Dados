@@ -1,0 +1,57 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Matriz_5
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int m, n;
+            int[,] matA, matB, matC;
+            string[] valores;
+
+            valores = Console.ReadLine().Split(' '); //2 3
+
+            m = int.Parse(valores[0]);//2
+            n = int.Parse(valores[1]);//2
+
+            matA = new int[m, n];
+            matB = new int[m, n];
+            matC = new int[m, n];
+
+            for (int i = 0; i < m; i++)
+            {
+                valores = Console.ReadLine().Split(' ');
+                for (int j = 0; j < n; j++)
+                {
+                    matA[i, j] = int.Parse(valores[j]);
+                }
+            }
+
+            for (int i = 0; i < m; i++)
+            {
+                valores = Console.ReadLine().Split(' ');
+                for (int j = 0; j < n; j++)
+                {
+                    matB[i, j] = int.Parse(valores[j]);
+                }
+            }
+
+            for (int i = 0; i < m; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    matC[i, j] = matA[i, j] + matB[i, j];
+                    Console.Write(matC[i, j] + " ");
+                }
+                Console.WriteLine();
+            }
+
+            Console.ReadKey();
+        }
+    }
+}
