@@ -1,0 +1,133 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DataSearchStatic
+{
+    public class ListaEstatica<T> where T : IComparable<T>
+    {
+        private T[] elemnetos;
+        private int tamanho;
+        private int capacidade;
+        public ListaEstatica(int capacidade)
+        {
+            this.capacidade = capacidade;
+            elemnetos= new T[capacidade];
+            tamanho = 0;
+        }
+
+        //inserir
+        public void Inserir(T valor)
+        {
+            if (tamanho == capacidade)
+            {
+                Console.WriteLine("Lista cheia.");
+            }
+            elemnetos[tamanho] = valor;
+            tamanho++;
+        }
+
+        //Exibir
+        public void Exibir()
+        {
+            if (tamanho == 0)
+            {
+                Console.WriteLine("Lista vazia.");
+                return;
+            }
+            Console.WriteLine("Lista: ");
+            for (int i = 0; i < tamanho; i++)
+            {
+                Console.WriteLine(elemnetos[i] + " ");
+            }
+            Console.WriteLine();
+        }
+
+        //Algoritimo de busca sequencial
+        public int BuscaSequencial(T valor)
+        {
+            for (int i = 0;i < tamanho; i++)
+            {
+                if (elemnetos[i].CompareTo(valor) == 0)
+                {
+                    return i;
+                }
+            }
+            return -1;
+        }
+
+        //Algoritimo de busca minada
+        public int BuscaBinaria(T valor)
+        {
+            int inicio = 0;
+            int fim = tamanho - 1;
+
+            while (inicio <= 0)
+            {
+                int meio = (inicio + fim) / 2;
+                if (elemnetos[meio].CompareTo(valor) == 0)
+                {
+                    return meio;
+                }
+
+                // metade parte inferior
+                if (elemnetos[meio].CompareTo(valor) > 0)
+                {
+                    fim = meio - 1;
+                }
+                // metade parte superior
+                else
+                {
+                    inicio = meio + 1;
+                }
+            }
+            return -1;
+        }
+    }
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Digite a quantidade de elementos da Lista: ");
+            int n = int.Parse(Console.ReadLine());
+
+            ListaEstatica<int> Lista = new ListaEstatica<int>(n);
+            
+            for (int i = 0; i < n; i++)
+            {
+                Console.WriteLine($"Digite o {i + 1}° elemento ");
+                int valor = int.Parse(Console.ReadLine());
+                Lista.Inserir(valor);
+            }
+
+            Lista.Exibir();
+
+            Console.WriteLine("Digite o valor a ser Buscado: ");
+            int elementoBuscado = int.Parse(Console.ReadLine());
+
+            //Busca Sequencial
+            int resutadoSequencial = Lista.BuscaSequencial(elementoBuscado);
+            if (resutadoSequencial != -1)
+            {
+                Console.WriteLine($"Elemento {elementoBuscado} " + $"encontre na posição {resutadoSequencial}" + $" - (Busca Sequencial)");
+            }
+            else
+            {
+                Console.WriteLine($"Elemento {elementoBuscado}" + $" não encontrado - (Busca Sequencial)");
+            }
+
+            //Busca Binaria (Lista precisa estar ordenada)
+            int resutadoBinario = Lista.BuscaSequencial(elementoBuscado);
+            if (resutadoBinario != -1)
+            {
+                Console.WriteLine($"Elemento {elementoBuscado} " + $"encontre na posição {resutadoBinario}" + $" - (Busca Binario)");
+            }
+            else
+            {
+                Console.WriteLine($"Elemento {elementoBuscado}" + $" não encontrado - (Busca Binario)");
+            }
+        }
+    }
+}
