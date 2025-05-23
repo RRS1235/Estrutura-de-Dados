@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -58,6 +59,7 @@ namespace Projeto
 
         static void MenuPrincipal()
         {
+            Console.WriteLine();
             Console.WriteLine("+-------------------+");
             Console.WriteLine("1 - Criar uma Lista");
             Console.WriteLine("2 - Criar uma Fila");
@@ -66,125 +68,192 @@ namespace Projeto
             Console.WriteLine("5 - Criar uma Matrix");
             Console.WriteLine("0 - Encerrar operação");
             Console.WriteLine("+-------------------+");
-            
+            Console.WriteLine();
+
         }
         /*-----------------------------------------------------------------------------------------------------------------*/
         static void CriarLista()
         {
-            Console.WriteLine();Console.WriteLine("+-------------------+");
+            Console.WriteLine();
+            Console.WriteLine();
 
+            List<int> lista = new List<int>();
             int opcao;
+            int valor;
 
             do
             {
+                Console.WriteLine("+---- Menu de Lista ----+");
                 Console.WriteLine("1 - Inserir Valor");
                 Console.WriteLine("2 - Remover Valor");
                 Console.WriteLine("3 - Exibir Valores");
-                Console.WriteLine("4 - Consiltar/Buscar Valor");
+                Console.WriteLine("4 - Consultar/Buscar Valor");
                 Console.WriteLine("0 - Voltar ao menu principal");
-                Console.WriteLine("+-------------------+");
-                opcao = int.Parse(Console.ReadLine());
+                Console.WriteLine("+------------------------+");
+
+                Console.Write("Escolha uma opção: ");
+                if (!int.TryParse(Console.ReadLine(), out opcao))
+                {
+                    Console.WriteLine("Opção inválida. Tente novamente.");
+                    continue;
+                }
 
                 switch (opcao)
                 {
-                    case '1':
-                        Console.WriteLine("Valor a ser Enserido: ");
-                    break;
-
-                    case '2':
-                        Console.WriteLine("Valor a ser Removido: ");
+                    case 1:
+                        Console.Write("Qual valor será inserido: ");
+                        if (int.TryParse(Console.ReadLine(), out valor))
+                        {
+                            lista.Add(valor);
+                            Console.WriteLine("Valor inserido com sucesso.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Valor inválido.");
+                        }
                         break;
 
-                    case '3':
-                        Console.WriteLine("Valor que a lista possui: ");
+                    case 2:
+                        Console.Write("Qual valor deve ser removido: ");
+                        if (int.TryParse(Console.ReadLine(), out valor))
+                        {
+                            if (lista.Remove(valor))
+                            {
+                                Console.WriteLine("Valor removido com sucesso.");
+                            }
+                            else
+                            {
+                                Console.WriteLine("Valor não encontrado.");
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Valor inválido.");
+                        }
                         break;
 
-                    case '4':
-                        Console.WriteLine("Qual valor pesquisar?: ");
+                    case 3:
+                        Console.WriteLine("Valores dentro da lista:");
+                        if (lista.Count == 0)
+                        {
+                            Console.WriteLine("Lista vazia!");
+                        }
+                        else
+                        {
+                            foreach (int C in lista)
+                            {
+                                Console.WriteLine(C);
+                            }
+                        }
+                        break;
+
+                    case 4:
+                        Console.Write("Digite o valor a buscar: ");
+                        if (int.TryParse(Console.ReadLine(), out valor))
+                        {
+                            if (lista.Contains(valor))
+                                Console.WriteLine("Valor encontrado na lista.");
+                            else
+                                Console.WriteLine("Valor NÃO está na lista.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Valor inválido.");
+                        }
+                        break;
+
+                    case 0:
+                        Console.WriteLine("Voltando ao menu principal...");
                         break;
 
                     default:
-                        MenuPrincipal();
+                        Console.WriteLine("Opção inválida. Tente novamente.");
                         break;
-
-
                 }
-            } while (opcao != 0);
 
+            } while (opcao != 0);
         }
         /*-----------------------------------------------------------------------------------------------------------------*/
         static void CriarFila()
         {
-            Queue<char> queue = new Queue<char>();
-
+            Queue<char> fila = new Queue<char>();
             int opcao;
             char valor;
-            Console.WriteLine();Console.WriteLine("+-------------------+");
-            Console.WriteLine("Fila usando Queue");
+
+            Console.WriteLine();
 
             do
             {
-                Console.WriteLine("Escolha uma o~pção");
+                Console.WriteLine("+--- Menu de Fila ----+");
                 Console.WriteLine("0. Voltar ao Menu Principal");
-                Console.WriteLine("1. Enqueue");
-                Console.WriteLine("2. Head");
-                Console.WriteLine("3. Desenfileirar");
+                Console.WriteLine("1. Enqueue (Inserir)");
+                Console.WriteLine("2. Head (Primeiro elemento)");
+                Console.WriteLine("3. Desenfileirar (Remover)");
                 Console.WriteLine("4. Tamanho da fila");
                 Console.WriteLine("5. Exibir fila");
-                opcao = int.Parse(Console.ReadLine());
+                Console.WriteLine("+------------------------+");
+
+                Console.WriteLine();
+                Console.Write("Escolha uma opção: ");
+                if (!int.TryParse(Console.ReadLine(), out opcao))
+                {
+                    Console.WriteLine("Entrada inválida. Digite um número.");
+                    continue;
+                }
 
                 switch (opcao)
                 {
                     case 0:
                         Console.WriteLine("Saindo...");
                         MenuPrincipal();
-                        
                         return;
 
                     case 1:
-                        Console.WriteLine("Digite um valor a ser enfileirado: ");
+                        Console.Write("Digite um valor a ser enfileirado: ");
                         valor = Console.ReadKey().KeyChar;
-                        queue.Enqueue(valor);
+                        fila.Enqueue(valor);
                         Console.WriteLine();
                         break;
 
                     case 2:
-                        if (queue.Count > 0)
-                            Console.WriteLine("Inicio da fila: " + queue.Peek());
+                        if (fila.Count > 0)
+                            Console.WriteLine("Início da fila: " + fila.Peek());
                         else
-                            Console.WriteLine("Fila Vazia");
+                            Console.WriteLine("Fila vazia.");
                         break;
 
                     case 3:
-                        if (queue.Count > 0)
-                            Console.WriteLine("Elementos desenfileirados: " + queue.Dequeue());
+                        if (fila.Count > 0)
+                            Console.WriteLine("Elemento desenfileirado: " + fila.Dequeue());
                         else
-                            Console.WriteLine("Fila Vazia");
+                            Console.WriteLine("Fila vazia.");
                         break;
 
                     case 4:
-                        Console.WriteLine("Quantidade de elementos na fila: " + queue.Count);
+                        Console.WriteLine("Quantidade de elementos na fila: " + fila.Count);
                         break;
 
                     case 5:
                         Console.WriteLine("Fila: ");
-                        foreach (var item in queue)
+                        if (fila.Count == 0)
+                            Console.WriteLine("Fila vazia.");
+                        else
                         {
-                            Console.WriteLine(item + " ");
+                            foreach (var item in fila)
+                            {
+                                Console.Write(item + " ");
+                            }
+                            Console.WriteLine();
                         }
-                        Console.WriteLine();
                         break;
 
                     default:
-                        MenuPrincipal();
+                        Console.WriteLine("Opção inválida. Tente novamente.");
                         break;
-
                 }
-
 
             } while (opcao != 0);
         }
-        /*-----------------------------------------------------------------------------------------------------------------*/
         static void CriarPilha()
         {
             Stack<string> pilha = new Stack<string>();
@@ -246,7 +315,7 @@ namespace Projeto
 
             } while (opcao != 0);
         }
-        /*-----------------------------------------------------------------------------------------------------------------*/
+
         static void CriarVetor()
         {
             Console.WriteLine(); Console.WriteLine("+-------------------+");
@@ -289,7 +358,7 @@ namespace Projeto
                 }
             } while (opcao != 0);
         }
-        /*-----------------------------------------------------------------------------------------------------------------*/
+
         static void CriarMatrix()
         {
             int opcao;
@@ -329,6 +398,9 @@ namespace Projeto
                     default:
                         break;
                 }
+
+                
+                
 
                 /*for (int i = 0; i < M; i++)
                 {
