@@ -42,10 +42,6 @@ namespace Projeto
                         CriarMatrix();
                         break;
 
-                    case '6':
-                        AlgoritimoPesquisa();
-                        break;
-
                     case '0':
                         Console.WriteLine("Encerrando o programa...");
                         break;
@@ -70,7 +66,6 @@ namespace Projeto
             Console.WriteLine("3 - Criar uma Pilha");
             Console.WriteLine("4 - Criar um Vetor");
             Console.WriteLine("5 - Criar uma Matrix");
-            Console.WriteLine("6 - Algoritimo de pesquisa");
             Console.WriteLine("0 - Encerrar operação");
             Console.WriteLine("+-------------------+");
             Console.WriteLine();
@@ -536,11 +531,6 @@ namespace Projeto
                 }
 
             } while (opcao != 0);
-        }
-        /*-----------------------------------------------------------------------------------------------------------------*/
-        static void AlgoritimoPesquisa()
-        {
-
         }
     }
 }
