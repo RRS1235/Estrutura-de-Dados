@@ -1,0 +1,148 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using static DateSort.Class1;
+
+namespace DateSort
+{
+    internal class Program
+    {
+        
+        static void Main(string[] args)
+        {
+            ListaDinamica<int> list = new ListaDinamica<int>();
+
+            while (true)
+            {
+                Console.Clear();
+                Console.WriteLine("1 - Inserir nova lista");
+                Console.WriteLine("2 - Exibir nova lista");
+                Console.WriteLine("3 - Ordenar lista");
+                Console.WriteLine("4 - Gerar lista aleatória");
+                Console.WriteLine("0 - Sair");
+                string opçao = Console.ReadLine();
+
+                Console.Write("Escolha sua opção: ");
+
+                switch (opçao)
+                {
+                    case "1":
+                        list = new ListaDinamica<int>(); 
+                        Console.WriteLine("\nQuantos elementos deseja inserir? ");
+                        if (int.TryParse(Console.ReadLine(), out int n) && n > 0)
+                        {
+                            for (int i = 0; i < n; i++)
+                            {
+                                Console.Write($"Digite o {i + 1}° valor: ");
+                                if (int.TryParse(Console.ReadLine(), out int valor))
+                                {
+                                    list.Inserir(valor);
+                                }
+                                else
+                                {
+                                    Console.WriteLine("opção invalida. " + 
+                                        "Precione ENTER para continuar.");
+                                    Console.WriteLine();
+                                }
+                                
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Numero invalido. Precione Enter");
+                            Console.ReadLine();
+                        }
+                        break;
+
+                    case "2":
+                        Console.Write("\nLista atual: ");
+                        list.Exibir();
+                        Console.WriteLine("Pressione ENTER" + " para continuar");
+                        Console.ReadLine();
+                        break;
+
+                    case "3":
+                        if (list.Vazia())
+                        {
+                            Console.Write("Lista está vazia. " + "Inserir elemento primeiro");
+                            Console.WriteLine("Pressione ENTER" + " para continuar");
+                            Console.ReadLine();
+                        }
+                        Console.WriteLine("\nEscolha um algoritimo" + " de ordenação");
+
+                        Console.WriteLine("1 - Bubblu Sort");
+                        Console.WriteLine("2 - Selection Sort");
+                        Console.WriteLine("3 - Insertion Sort");
+                        Console.WriteLine("4 - Merge Sort");
+                        Console.WriteLine("5 - Quick Sort");
+                        Console.Write("Opção: ");
+                        string escolha = Console.ReadLine();
+
+                        Console.Write("\nLista antes da Organização:");
+
+                        var copiaOrdenavel = list.Clonar();
+                        Stopwatch sw = new Stopwatch();
+
+                        switch (escolha)
+                        {
+                            case "1": copiaOrdenavel.OrdenarNubble(); break;
+                            case "2": copiaOrdenavel.OrdenarNubble(); break;
+                            case "3": copiaOrdenavel.OrdenarNubble(); break;
+                            case "4": copiaOrdenavel.OrdenarNubble(); break;
+                            case "5": copiaOrdenavel.OrdenarNubble(); break;
+                            default:
+                                Console.WriteLine("Opção invalida.");
+                                Console.ReadLine();
+                                continue;
+                        }
+                        sw.Stop();
+                        Console.Write("\nLista após ordenação:");
+                        copiaOrdenavel.Exibir();
+                        Console.Write($"\nTempo de execução: {sw.ElapsedMilliseconds} ms");
+                        Console.Write($"\nComparação: {copiaOrdenavel.Comparacoes}");
+                        Console.Write($"\nTrocas: {copiaOrdenavel.Trocas}");
+                        Console.Write($"\nPressione ENTER para continuar");
+                        Console.ReadLine();
+
+                        break;
+
+                    case "4":
+                        Console.WriteLine("\nQuantos numeros deseja gerar: ");
+                        if (int.TryParse(Console.ReadLine(), out int qtd) && qtd > 0)
+                        {
+                            Console.Write("valor minimo: ");
+                            int min = int.TryParse(Console.ReadLine(), out int minimo) ? minimo: 0;
+
+                            Console.Write("valor maximo: ");
+                            int max = int.TryParse(Console.ReadLine(), out int maximo) ? maximo: 0;
+
+                            list = new ListaDinamica<int>();
+                            list.GerarAleatorio(qtd, min, max);
+                            Console.WriteLine("Lista gerada com sucesso!");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Quantidade invalida.");
+                        }
+                        Console.WriteLine("\nPrecione ENTER para continuar");
+                        Console.ReadLine();
+                        break;
+
+                    case "0":
+                        Console.WriteLine("Saindo...");
+                        break;
+
+                    default:
+                        Console.WriteLine("Opção invalida. " + 
+                            "Pressione ENTER para continuar. ");
+                        Console.ReadLine();
+                        break;
+                }
+            }
+        }
+    }
+}
