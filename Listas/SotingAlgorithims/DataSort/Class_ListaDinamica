@@ -1,0 +1,108 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DateSort
+{
+    internal class Class1
+    {
+        public class ListaDinamica<T> where T : IComparable<T>
+        {
+            private List<T> elementos;
+            public int Comparacoes { get; private set; }
+            public int Trocas { get; private set; }
+
+            public ListaDinamica()
+            {
+                elementos = new List<T>();
+            }
+
+            public void Inserir(T valor)
+            {
+                elementos.Add(valor);
+            }
+
+            public void Exibir()
+            {
+                if (elementos.Count == 0)
+                {
+                    Console.WriteLine("Lisra vazia!");
+                }
+                Console.WriteLine("Lista: ");
+                foreach (var item in elementos)
+                {
+                    Console.WriteLine(item + " ");
+                }
+                Console.WriteLine();
+            }
+
+            public bool Vazia()
+            {
+                return elementos.Count == 0;
+            }
+
+            public void GerarAleatorio(int quantidade, int min, int max)
+            {
+                Random rnd = new Random();
+                elementos.Clear();
+                for (int i = 0; i < quantidade; i++)
+                {
+                    int valor = rnd.Next(min, max + 1); // 50
+                    elementos.Add((T)Convert.ChangeType(valor, typeof(T)));
+                }
+            }
+
+            public List<T> ObterTodos()
+            {
+                return new List<T>(elementos);
+            }
+
+            public ListaDinamica<T> Clonar()
+            {
+                var copia = new ListaDinamica<T>();
+                foreach (var item in elementos)
+                {
+                    copia.Inserir(item);
+                }
+                return copia;
+            }
+
+            private void ResetarContadores()
+            {
+                Comparacoes = 0;
+                Trocas = 0;
+            }
+
+            //  BUBBLE SORT
+
+            public void OrdenarNubble()
+            {
+                ResetarContadores();
+                for (int i = 0; i < elementos.Count - 1; i++)
+                {
+                    for (global::System.Int32 j = 0; j < elementos.Count - i - 1; j++)
+                    {
+                        Comparacoes++;
+                        if (elementos[j].CompareTo(elementos[j+1]) > 0)
+                        {
+                            Trocar(j, j + 1);
+                        }
+                    }
+
+                }
+            }
+
+            //TROCAR
+
+            public void Trocar(int a, int b)
+            {
+                T temp = elementos[a];
+                elementos[a] = elementos[b];
+                elementos[b] = temp;
+                Trocas++;
+            }
+        }
+    }
+}
